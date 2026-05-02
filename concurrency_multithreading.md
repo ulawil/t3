@@ -38,6 +38,14 @@ return next;
 2. calculate new value
 3. compare if current value is the same (value == prev) and if yes, swap to new value (value = next); if not, retry the loop
 
+## Locks
+Locks vs synchronized blocks:
+- don't have to be containted in 1 method
+- support fairnes - the longest waiting thread is given access to the lock
+- thread in waiting state can be interrupted by using lockInterruptably
+
+
+
 
 
 
