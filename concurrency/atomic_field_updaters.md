@@ -7,14 +7,12 @@ public class SynchronizedExample {
     public volatile int i = 0;
 }
 
+...
+
 SynchronizedExample se = new SynchronizedExample();
 
 AtomicIntegerFieldUpdater<SynchronizedExample> iu =
     AtomicIntegerFieldUpdater.newUpdater(SynchronizedExample.class, "i");
-    // i must be:
-    // - volatile
-    // - non-static
-    // - not final
 
 iu.incrementAndGet(se);
 ```
