@@ -2,47 +2,58 @@ Knows synchronization principles and primitives. Is able to write thread-safe co
 Knows basics of cross-thread communication.
 Is aware of potential concurrency issues (deadlock, starvation).
 
-// novice
-* synchronized, 
-* volatile, 
-* atomics, 
-* thread and thread pools, 
-* deadlock.
-// competent
-* await/notify, 
-* ForkJoinPool, 
-* Locks, 
-* ExecutorService, 
-* BlockingQueue, 
-* Atomic Field updaters, 
-* LongAdder, DoubleAdder, 
-* deadlock resolution.
+* novice
+    * synchronized
+    * volatile
+    * atomics
+    * thread and thread pools
+    * deadlock
+* competent
+    * await/notify
+    * ForkJoinPool
+    * Locks
+    * ExecutorService
+    * BlockingQueue
+    * Atomic Field updaters
+    * LongAdder, DoubleAdder
+    * deadlock resolution
 
-## Understanding internals of atomics
-Internally, atomics make use of
-- CAS (compare-and-swap) operation (not an algorithm but a single JVM instruction)
-- volatile memory semantics (visibility + ordering)
-to achieve thread-safe operations.
-
-### CAS
-`incrementAndGet()` CAS example:
+# Wait/notify
 ```java
-int prev, next;
-do {
-    prev = value; // 1
-    next = prev + 1; // 2
-} while (!CAS(value, prev, next)); // 3
-return next;
-```
-1. read current value
-2. calculate new value
-3. compare if current value is the same (value == prev) and if yes, swap to new value (value = next); if not, retry the loop
+    // used for thread coordination around a shared resource’s state
 
-## Locks
-Locks vs synchronized blocks:
-- don't have to be containted in 1 method
-- support fairnes - the longest waiting thread is given access to the lock
-- thread in waiting state can be interrupted by using lockInterruptably
+    wait(); // releases the monitor of the object this thread is synchronized on
+            // and causes the current thread to enter the waiting state
+            // until it is awakened by notify(), notifyAll(), or interrupted
+
+    notify(); // wakes up one random thread waiting on this object's monitor
+
+    notifyAll(); // wakes up all threads waiting on this object's monitor
+```
+
+# Locks
+```java
+    public static Lock lock = new ReentrantLock(true); // fairness set to true
+    // offers similar semantics and concurrency as implicit lock of synchronized method, but with extended capabilities:
+    // - does not need to be contained in 1 method
+    // - supports fairness (longest waiting thread acquires the lock first)
+    // - thread doesn't have to be blocked if it can't acquire a lock when using tryLock()
+    // - waiting thread can be interrupted when using lockInterruptibly()
+
+    public static ReadWriteLock readWriteLock= new ReentrantReadWriteLock();
+    public static Lock readLock = readWriteLock.readLock();
+    // if no thread acquired or tries to acquire write lock, multiple threads can acquire read lock
+    public static Lock writeLock = readWriteLock.writeLock();
+    // if no threads acquired read or write lock, only one thread can acquire write lock
+
+    // working with locks:
+    lock.lock();
+    try {
+        counter++;
+    } finally {
+        lock.unlock();
+    }
+```
 
 
 
