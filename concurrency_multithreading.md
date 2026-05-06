@@ -39,6 +39,37 @@ public class SynchronizedExample {
    }
 ```
 
+# Volatile
+```java
+   // keyword that
+   // a) guarantees visibility - threads read/write the variable directly from/to the main memory
+   //                            rather than their caches
+   // b) prevents reordering of instructions around it by the JVM
+   // used for flags, state indicators, inside atomics
+   volatile public int i = 0;
+```
+
+# Atomics
+```java
+   // Alternatives to regular types (int, long...) which can be atomically updated
+   // Internally, they use
+   //      - CAS (compare-and-swap operation)
+   //      - volatile memory semantics (visibility + no reordering)
+   // to achieve thread-safety
+   // incrementAndGet(i) internals pseudo-code:
+   //      int prev, next;
+   //      do {
+   //          prev = i;
+   //          next = prev + 1;
+   //      while (!CAS(i, prev, next));
+   //      return next;
+   public static AtomicInteger ai = new AtomicInteger(0);
+
+   ...
+   
+   ai.incrementAndGet();
+```
+
 # Wait/notify
 ```java
    // used for thread coordination around a shared resource’s state
