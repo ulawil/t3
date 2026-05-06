@@ -70,6 +70,17 @@ public class SynchronizedExample {
    ai.incrementAndGet();
 ```
 
+# Deadlock
+```java
+   // Deadlock - situation where Thread A acquired lock A and is waiting to acquire lock B,
+   //            while Thread B acquired lock B and is waiting to acquire lock A;
+   //            both threads are stuck waiting indefinitely
+   // solutions:
+   //      1) avoid cyclic dependencies in lock acquisition - have global order in which threads acquire locks
+   //      2) use timed lock attempts like tryLock(timeout) to ensure thread doesn't get blocked indefinitely
+   //         if it fails to acquire lock
+```
+
 # Wait/notify
 ```java
    // used for thread coordination around a shared resource’s state
@@ -173,7 +184,10 @@ public class AtomicFieldUpdatersExample {
    long result = longAdder.sum();
 ```
 
-
-
-
-
+# Starvation
+```java
+   // Starvation - situation where one thread gets denied CPU/locks and keeps waiting even though it's
+   //              eligible to run
+   // solutions:
+   //      1) use locks instead of synchronized blocks and set fairness to true
+```
