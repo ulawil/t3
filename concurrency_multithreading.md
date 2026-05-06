@@ -49,10 +49,38 @@ Is aware of potential concurrency issues (deadlock, starvation).
     // working with locks:
     lock.lock();
     try {
-        counter++;
+        ...
     } finally {
         lock.unlock();
     }
+```
+
+# ExecutorService
+```java
+   // ExecutorService - tool that simplifies running tasks asynchronously by providing factory methods
+   //                   for thread pools we can submit tasks to
+        
+   // Single thread executor example
+   ExecutorService executorService1 = Executors.newSingleThreadExecutor();
+   executorService1.submit(() -> System.out.println("Hello world"));
+   executorService1.shutdown();
+
+   // Thread pool example
+   ExecutorService executorService2 = Executors.newFixedThreadPool(2);
+   executorService2.submit(() -> System.out.println(Thread.currentThread().getName() + " - hello1!"));
+   executorService2.submit(() -> System.out.println(Thread.currentThread().getName() + " - hello2!"));
+   executorService2.submit(() -> System.out.println(Thread.currentThread().getName() + " - hello3!"));
+   executorService2.shutdown();
+   //          pool-2-thread-1 - hello1!
+   //          pool-2-thread-2 - hello2!
+   //          pool-2-thread-1 - hello3!
+
+   // Scheduled executor example
+   ScheduledExecutorService executorService3 = Executors.newSingleThreadScheduledExecutor();
+   executorService3.schedule(() -> System.out.println("Hello world scheduled"), 5, TimeUnit.SECONDS);
+
+   executorService3.scheduleAtFixedRate(() -> System.out.println("Hello world repeated"), 0, 5, TimeUnit.SECONDS);
+   executorService3.awaitTermination(30, TimeUnit.SECONDS);
 ```
 
 
