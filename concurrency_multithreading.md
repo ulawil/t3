@@ -3,20 +3,20 @@ Knows basics of cross-thread communication.
 Is aware of potential concurrency issues (deadlock, starvation).
 
 * novice
-    * synchronized
-    * volatile
-    * atomics
-    * thread and thread pools
-    * deadlock
+    * [x] synchronized 
+    * [x] volatile
+    * [x] atomics
+    * [ ] thread and thread pools
+    * [x] deadlock
 * competent
-    * await/notify
-    * ForkJoinPool
-    * Locks
-    * ExecutorService
-    * BlockingQueue
-    * Atomic Field updaters
-    * LongAdder, DoubleAdder
-    * deadlock resolution
+    * [x] await/notify
+    * [ ] ForkJoinPool
+    * [x] Locks
+    * [x] ExecutorService
+    * [ ] BlockingQueue
+    * [x] Atomic Field updaters
+    * [x] LongAdder, DoubleAdder
+    * [x] deadlock resolution
 
 # Synchronized
 ```java
