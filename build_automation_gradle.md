@@ -1,3 +1,21 @@
+* novive
+	* Manually can configure a single module, java plugin, and public repo dependencies usage
+	* Command line usage: build, test
+	* GAV coordinates
+* competent
+	* Understanding: build phases and dependency scopes: runtime, compile, etc
+	* Declare repositories
+	* Java application plugin
+	* Multi-project build
+	* Version constrains
+	* Customizing unit test execution
+
+
+
+
+
+
+
 # Gradle
 
 ## Understanding: build phases and dependency scopes: runtime, compile, etc
